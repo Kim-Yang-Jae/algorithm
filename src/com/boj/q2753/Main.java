@@ -1,4 +1,4 @@
-package com.baekjoon.q2753;
+package com.boj.q2753;
 
 import java.util.Scanner;
 

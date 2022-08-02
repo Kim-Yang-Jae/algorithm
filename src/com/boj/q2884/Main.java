@@ -1,4 +1,4 @@
-package com.baekjoon.q2884;
+package com.boj.q2884;
 
 import java.util.Scanner;
 
