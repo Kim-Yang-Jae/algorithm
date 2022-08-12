@@ -4,6 +4,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ *  BOJ Q2941 크로아티아 알파벳
+ *      č -> c=
+ *      ć -> c-
+ *      dž -> dz=
+ *      đ -> d-
+ *      lj -> lj
+ *      nj -> nj
+ *      š -> s=
+ *      ž -> z=
+ *  입력되 단어가 몇개의 크로아티아 알파벳으로 구성되어 있는지 출력
+ *  위 목록에 없는 크로아티아 알파벳은 한 글자로 계산
+ */
 public class Main {
     public static void main(String[] args) throws IOException {
 
@@ -11,26 +24,25 @@ public class Main {
         String input = br.readLine();
         printCntCroatianAlphabet(input);
         br.close();
-    }
+    }// end of main method
 
-    static void printCntCroatianAlphabet(String input){
+    /**
+     * 크로아티아 알파벳 갯수를 계산하고 출력하는 메서드
+     * @param input 단어를 입력 받음
+     */
+    static void printCntCroatianAlphabet(String input) {
         int count = 0;
-        char[] charArr = input.toCharArray();
-        for (int i = 0; i < input.length(); i++) {
-            if(charArr[i] == 'c' || charArr[i] == 's'|| charArr[i] == 'z'){
-                if(charArr[i+1]=='=' || charArr[i+1] == '-')
-                    i++;
-            }else if(charArr[i] == 'd'){
-                if(charArr[i+1] == 'z' && charArr[i+2] == '=')
-                    i+=2;
-                else if(charArr[i+1] == '-')
-                    i++;
-            }else if(charArr[i] == 'l' || charArr[i] == 'n'){
-                if(charArr[i+1] == 'j')
-                    i++;
-            }
+        input = input.replace("c=", "!");
+        input = input.replace("c-", "!");
+        input = input.replace("dz=", "!");
+        input = input.replace("d-", "!");
+        input = input.replace("lj", "!");
+        input = input.replace("nj", "!");
+        input = input.replace("s=", "!");
+        input = input.replace("z=", "!");
+        for (char ch : input.toCharArray()) {
             count++;
         }
         System.out.println(count);
-    }
-}
+    }// end of printCntCroatianAlphabet method
+}//end of Main class
