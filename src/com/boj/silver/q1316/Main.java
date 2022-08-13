@@ -47,11 +47,8 @@ public class Main {
                     charSet.add(input.charAt(i));
                 }
             }else if( i -1 > 0){ //단어의 마지막 문자 확인
-                //문자가 변했을 때 set에 넣어서 중복 체크
-                if(input.charAt(i-1) !=  input.charAt(i)){
-                    num++;
-                    charSet.add(input.charAt(i));
-                }
+                num++;
+                charSet.add(input.charAt(i));
             }else{ //1개의 문자만 가진 단어는 무조건 그룹단어
                 cnt++;
                 return;
