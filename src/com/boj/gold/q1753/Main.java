@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Main {
     static int V, E, K;
-    static adjList adjLists;
+    static ArrayList<Edge>[] adjList;
     static int[] D;
     static boolean[] visited;
 
@@ -19,16 +19,20 @@ public class Main {
         V = Integer.parseInt(st.nextToken());
         E = Integer.parseInt(st.nextToken());
         K = Integer.parseInt(br.readLine());
-        adjLists = new adjList(V + 1);
+        adjList = new ArrayList[V + 1];
         D = new int[V + 1];
         visited = new boolean[V + 1];
+
+        for(int i = 0; i < V+1 ; i++) {
+            adjList[i] = new ArrayList<Edge>();
+        }
 
         for (int cnt = 0; cnt < E; cnt++) {
             st = new StringTokenizer(br.readLine());
             int from = Integer.parseInt(st.nextToken());
             int to = Integer.parseInt(st.nextToken());
             int weight = Integer.parseInt(st.nextToken());
-            adjLists.add(from, new Edge(to, weight));
+            adjList[from].add(new Edge(to, weight));
         }
 
         Arrays.fill(D, Integer.MAX_VALUE);
@@ -61,30 +65,6 @@ public class Main {
         }
     }
 
-    /**
-     * 그래프를 저장한 인접리스트
-     */
-    static class adjList {
-        private final LinkedList<LinkedList<Edge>> list = new LinkedList<>();
-
-        //생성자 호출 시 인접리스트 초기화
-        public adjList(int size) {
-            for (int cnt = 0; cnt < size; cnt++) {
-                list.add(new LinkedList<Edge>());
-            }
-        }
-
-        //양방향성 그래프이므로 양쪽 노드 모두에 값 추가
-        public void add(int from, Edge edge) {
-            list.get(from).add(edge);
-        }
-
-        //해당 노드와 연결된 노드의 리스트 반환
-        public LinkedList<Edge> get(int index) {
-            return list.get(index);
-        }
-    }
-
     static void dijkstra() {
         PriorityQueue<Edge> pQueue = new PriorityQueue<>();
         pQueue.offer(new Edge(K, 0));
@@ -96,10 +76,10 @@ public class Main {
             if (D[end] < weight)
                 continue;
 
-            for (int i = 0; i < adjLists.get(end).size(); i++) {
-                int end2 = adjLists.get(end).get(i).to;
-                int weight2 = adjLists.get(end).get(i).weight;
-                if(D[end2] > weight + weight2){
+            for (int i = 0; i < adjList[end].size(); i++) {
+                int end2 = adjList[end].get(i).to;
+                int weight2 = adjList[end].get(i).weight;
+                if (D[end2] > weight + weight2) {
                     D[end2] = weight + weight2;
                     pQueue.offer(new Edge(end2, weight + weight2));
                 }
